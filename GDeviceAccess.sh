@@ -14,10 +14,21 @@ WEATHER_STATION=kord
 
 alwaysRun(){
     #Called at the end of ALL functions unconditionally
-    if [[ $1 == "" ]]; then echo "Call with required arguments. Available functions are getAccessRefreshTokens, accessTokenRefresh, and nestValues." && exit 1; fi
+    if [[ $1 == "" ]]; then echo "Call with required arguments. Available functions are setAuthorizationCode, getAccessRefreshTokens, accessTokenRefresh, and nestValues." && exit 1; fi
+    if [[ $1 == "setAuthorizationCode" ]]; then setAuthorizationCode $2; fi
     if [[ $1 == "getAccessRefreshTokens" ]]; then getAccessRefreshTokens; fi
     if [[ $1 == "accessTokenRefresh" ]]; then accessTokenRefresh; fi
     if [[ $1 == "nestValues" ]]; then nestValues; fi
+}
+
+setAuthorizationCode(){
+    if [[ $1 == "" ]]; then echo "Call with required arguments. When calling setAuthorizationCode the second argument should be authorization-code." && exit 1; fi
+    echo $1 > $BASE_PATH/authorization-code
+    sleep 3s
+    getAccessRefreshTokens
+    sleep 3s
+    nestValues
+    tail $BASE_PATH/conditionsHistory.log
 }
 
 getAccessRefreshTokens(){
@@ -47,4 +58,4 @@ nestValues(){
     } >> $BASE_PATH/conditionsHistory.log
 }
 
-alwaysRun $1
+alwaysRun $1 $2
