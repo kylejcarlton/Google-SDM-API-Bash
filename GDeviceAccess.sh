@@ -1,8 +1,8 @@
 #!/bin/bash
-#DEPENDENCIES:
-#curl - https://curl.se/download.html
-#jq - https://stedolan.github.io/jq/download/
-#weather-util - http://fungi.yuggoth.org/weather/
+# DEPENDENCIES:
+# curl - https://curl.se/download.html
+# jq - https://stedolan.github.io/jq/download/
+# weather-util - http://fungi.yuggoth.org/weather/
 
 BASE_PATH="/home/ubuntu/Google-SDM-API"
 PROJECT_ID=$(cat $BASE_PATH/project-id)
@@ -56,6 +56,7 @@ nestValues(){
         echo -n "outsideTempC:"$(weather-util -q --headers=temperature $WEATHER_STATION | grep -oP '(?<=\().*(?=\))'| tr -d " C")"|";
         echo "outsideHumidity%:"$(weather-util -q --headers=relative_humidity $WEATHER_STATION | grep -oP '(?<=Humidity: )[^ ]*'| tr -d %)"|";
     } >> $BASE_PATH/conditionsHistory.log
+    tail $BASE_PATH/conditionsHistory.log
 }
 
 alwaysRun $1 $2
