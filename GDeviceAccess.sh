@@ -23,7 +23,7 @@ alwaysRun(){
 
 setAuthorizationCode(){
     if [[ $1 == "" ]]; then echo "Call with required arguments. When calling setAuthorizationCode the second argument should be authorization-code." && exit 1; fi
-    echo $1 > $BASE_PATH/authorization-code
+    echo -n $1 > $BASE_PATH/authorization-code
     sleep 3s
     getAccessRefreshTokens
     sleep 3s
