@@ -11,17 +11,14 @@ set grid linecolor rgb "#FFFFFF"
 set border linecolor rgb "#FFFFFF"
 
 # Set labels and title
-#set title 'Humidity and Temperature'
 set xlabel 'Time \& Date'
-set ylabel 'Values' offset 1,1 rotate by 0
 set key center top outside
 
-# Move y-axis tics and numbers to the right side
-set ytics nomirror
-set y2tics 10  # Set the increment for y2-axis tick labels
-
-# Set y2-axis range
-set y2range [0:100]  # Adjust the range according to your data
+# y-axis and y2-axis
+set yrange [-40:100]
+set y2range [-40:100]
+set ytics nomirror 10
+set y2tics nomirror 10
 
 # Set data file format and column separator
 set datafile separator '|'
